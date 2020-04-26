@@ -7,8 +7,8 @@ import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Listener;
 import org.eclipse.swt.widgets.MenuItem;
 
-import model.LoadData;
-import model.SaveData;
+import util.xml.LoadData;
+import util.xml.SaveData;
 import view.form.AddForm;
 import view.form.GeneralSearchForm;
 

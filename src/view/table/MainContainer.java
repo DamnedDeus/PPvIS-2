@@ -19,7 +19,7 @@ public class MainContainer {
 	private static Display display;
 	private static Shell shell;
 	private static Table table;
-
+	
 	public static Table getTable() {
 		return table;
 	}
