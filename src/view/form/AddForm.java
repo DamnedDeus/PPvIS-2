@@ -47,9 +47,6 @@ public class AddForm {
 		for (int i = 0; i < 8; i++) {
 			Group groupe1 = new Group(groupe, SWT.NONE);
 			groupe1.setLayout(new RowLayout(SWT.HORIZONTAL));
-
-			Label label1 = new Label(groupe1, SWT.NONE);
-			labels.add(label1);
 			
 			Text text1 = new Text(groupe1, SWT.BORDER);
 			RowData layoutData1 = new RowData();
@@ -58,6 +55,9 @@ public class AddForm {
 			text1.setText("");		
 			texts.add(text1);
 			text1.pack();
+			
+			Label label1 = new Label(groupe1, SWT.NONE);
+			labels.add(label1);
 		}
 		labels.get(0).setText("Фамилия");
 		labels.get(1).setText("Имя");
@@ -88,7 +88,7 @@ public class AddForm {
 						errorMessege.setMessage("Спортсмен с таким ФИО в списке уже присутствует");
 						errorMessege.open();
 					}
-					MainContainer.tableConfig();
+					MainContainer.tableConfig(DataHandler.configPage(), MainContainer.getTable());
 				}
 			}
 		});

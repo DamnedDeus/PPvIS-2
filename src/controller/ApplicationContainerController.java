@@ -10,8 +10,7 @@ import org.eclipse.swt.widgets.MenuItem;
 import model.LoadData;
 import model.SaveData;
 import view.form.AddForm;
-import view.form.DeleteForm;
-import view.form.SearchForm;
+import view.form.GeneralSearchForm;
 
 public class ApplicationContainerController {
 
@@ -41,14 +40,16 @@ public class ApplicationContainerController {
 		listeners.get(3).addListener(SWT.Selection, new Listener() {
 			@Override
 			public void handleEvent(Event arg0) {
-				DeleteForm.deleteSportsman();
+				GeneralSearchForm form = new GeneralSearchForm();
+				form.generalSearchForm(true);
 			}
 		});
 
 		listeners.get(4).addListener(SWT.Selection, new Listener() {
 			@Override
 			public void handleEvent(Event arg0) {
-				SearchForm.searchSportsman();
+				GeneralSearchForm form = new GeneralSearchForm();
+				form.generalSearchForm(false);
 			}
 		});
 	}

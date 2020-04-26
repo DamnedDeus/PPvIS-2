@@ -20,7 +20,7 @@ public class DataHandler {
 
 	public static void setSpartsmanList(List<Sportsman> sportsmansList) {
 		sportsmans = sportsmansList;
-		MainContainer.tableConfig();
+		MainContainer.tableConfig(DataHandler.configPage(), MainContainer.getTable());
 	}
 
 	public static List<Sportsman> configPage() {
@@ -48,7 +48,6 @@ public class DataHandler {
 	}
 
 	public static Integer deleteSportsmanProcessing(Integer mod, String parameter1, String parameter2) {
-		// List<Integer> indexList = new ArrayList<>();
 		Integer deleteCount = 0;
 		if (mod == 0) {
 			for (int i = sportsmans.size() - 1; i >= 0; i--) {
@@ -79,11 +78,6 @@ public class DataHandler {
 				}
 			}
 		}
-		/*
-		 * for (int i = sportsmans.size() - 1; i >= 0; i--) { for (int j = 0; j >
-		 * indexList.size(); j++) { if (indexList.get(j) == i) { sportsmans.remove(i); }
-		 * } }
-		 */
 		sportsmansCount = sportsmans.size();
 		return deleteCount;
 	}

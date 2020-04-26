@@ -12,6 +12,7 @@ import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Combo;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Label;
+import org.eclipse.swt.widgets.MessageBox;
 import org.eclipse.swt.widgets.Shell;
 
 import model.DataHandler;
@@ -23,8 +24,13 @@ public class TablePanelManage {
 	private static Integer countPage;
 	private static Integer page = 0;
 	private static List<Label> labels;
+
 	public static void processingPanel(Shell shell) {
 		setSportsmansCount();
+
+		MessageBox errorMessege = new MessageBox(shell);
+		errorMessege.setText("Некорректный ввод");
+		errorMessege.setMessage("Введите число от 1 до 99");
 
 		Composite group = new Composite(shell, SWT.BORDER);
 		group.setLayout(new RowLayout(SWT.HORIZONTAL));
@@ -43,7 +49,7 @@ public class TablePanelManage {
 			@Override
 			public void widgetSelected(SelectionEvent arg0) {
 				TablePanelManage.page = 0;
-				MainContainer.tableConfig();
+				MainContainer.tableConfig(DataHandler.configPage(), MainContainer.getTable());
 			}
 		});
 
@@ -54,7 +60,7 @@ public class TablePanelManage {
 			@Override
 			public void widgetSelected(SelectionEvent arg0) {
 				page = countPage - 1;
-				MainContainer.tableConfig();
+				MainContainer.tableConfig(DataHandler.configPage(), MainContainer.getTable());
 			}
 		});
 
@@ -66,7 +72,7 @@ public class TablePanelManage {
 			public void widgetSelected(SelectionEvent arg0) {
 				if (page > 0) {
 					page--;
-					MainContainer.tableConfig();
+					MainContainer.tableConfig(DataHandler.configPage(), MainContainer.getTable());
 				}
 			}
 		});
@@ -77,17 +83,17 @@ public class TablePanelManage {
 		rightButton.addSelectionListener(new SelectionAdapter() {
 			@Override
 			public void widgetSelected(SelectionEvent arg0) {
-				if (page < countPage-1) {
+				if (page < countPage - 1) {
 					page++;
-					MainContainer.tableConfig();
+					MainContainer.tableConfig(DataHandler.configPage(), MainContainer.getTable());
 				}
 			}
 		});
-		
+
 		Button savePageSizeButton = new Button(groups.get(2), SWT.PUSH);
 		savePageSizeButton.setText("Save page size");
 		savePageSizeButton.pack();
-		
+
 		Combo combo = new Combo(groups.get(2), SWT.DROP_DOWN);
 		String[] items = new String[] { "5", "10", "15" };
 		combo.setItems(items);
@@ -95,18 +101,22 @@ public class TablePanelManage {
 		layoutData.width = 60;
 		combo.setLayoutData(layoutData);
 		combo.pack();
-		
+
 		savePageSizeButton.addSelectionListener(new SelectionAdapter() {
 			@Override
 			public void widgetSelected(SelectionEvent arg0) {
 				try {
-					TablePanelManage.pageSize = Integer.valueOf(combo.getText());
+					Integer count = Integer.valueOf(combo.getText());
+					if (count > 0 & count < 100) {
+						TablePanelManage.pageSize = count;
+					} else
+						errorMessege.open();
+
 				} catch (NumberFormatException e) {
-					System.err.println("Неверный формат строки!");
+					errorMessege.open();
 				}
 				page = 0;
-				countProcessed();
-				MainContainer.tableConfig();
+				MainContainer.tableConfig(DataHandler.configPage(), MainContainer.getTable());
 			}
 		});
 
@@ -123,7 +133,7 @@ public class TablePanelManage {
 		countProcessed();
 		labels.get(0).setText("page size = " + pageSize);
 		labels.get(1).setText("number of sportsman = " + sportsmansCount);
-		labels.get(2).setText("number of page = " + (page + 1));
+		labels.get(2).setText("number of page = " + Integer.toString(page + 1));
 	}
 
 	public static void countProcessed() {

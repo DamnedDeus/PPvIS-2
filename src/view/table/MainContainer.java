@@ -19,9 +19,9 @@ public class MainContainer {
 	private static Display display;
 	private static Shell shell;
 	private static Table table;
-	private static List<Sportsman> sportsmans;
 
-	public MainContainer() {
+	public static Table getTable() {
+		return table;
 	}
 
 	public void configContainer() {
@@ -40,7 +40,7 @@ public class MainContainer {
 		MainContainer.table = new Table(shell, SWT.BORDER | SWT.MULTI | SWT.FULL_SELECTION);
 		table.setHeaderVisible(true);
 		TablePanelManage.processingPanel(shell);
-		tableConfig();
+		tableConfig(DataHandler.configPage(), table);
 
 		MenuBar.getInstance(shell);
 		shell.open();
@@ -54,12 +54,9 @@ public class MainContainer {
 		display.dispose();
 	}
 
-	public static void tableConfig() {
-		TablePanelManage.countProcessed();
-
-		MainContainer.table.setVisible(false);
-		MainContainer.table.clearAll();
-		MainContainer.table.removeAll();
+	public static void tableConfig(List<Sportsman> sportsmans, Table table) {
+		if(MainContainer.getTable().equals(table))TablePanelManage.countProcessed();
+		table.removeAll();
 
 		String[] titles = { "Полное имя спортсмена", "Состав", "Позиция", "Титулы", "Вид спорта", "Разряд" };
 		for (int loopIndex = 0; loopIndex < titles.length; loopIndex++) {
@@ -68,7 +65,6 @@ public class MainContainer {
 			column.setText(titles[loopIndex]);
 		}
 
-		sportsmans = DataHandler.configPage();
 		if (sportsmans != null) {
 			for (int loopIndex = 0; loopIndex < sportsmans.size(); loopIndex++) {
 				TableItem item = new TableItem(table, SWT.NULL);
@@ -82,7 +78,7 @@ public class MainContainer {
 		}
 		for (int loopIndex = 0; loopIndex < titles.length; loopIndex++)
 			table.getColumn(loopIndex).pack();
-		MainContainer.table.setVisible(true);
+		table.getShell().layout();
 		TablePanelManage.informationProcessed();
 	}
 

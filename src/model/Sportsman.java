@@ -9,8 +9,12 @@ public class Sportsman extends Person {
 
 	public Sportsman() {
 	}
-	public Sportsman(Person person, String lineup, String position, Integer titlesQuantity,String sport ,String category) {
+
+	public Sportsman(Person person, String lineup, String position, Integer titlesQuantity, String sport,
+			String category) {
 		super(person);
+		if (titlesQuantity < 0)
+			titlesQuantity = 0;
 		this.lineup = lineup;
 		this.position = position;
 		this.titlesQuantity = titlesQuantity;
@@ -29,10 +33,11 @@ public class Sportsman extends Person {
 	public Integer getTitlesQuantity() {
 		return this.titlesQuantity;
 	}
+
 	public String getSport() {
 		return this.sport;
 	}
-	
+
 	public String getCategory() {
 		return this.category;
 	}
