@@ -49,7 +49,7 @@ public class TablePanelManage {
 			@Override
 			public void widgetSelected(SelectionEvent arg0) {
 				TablePanelManage.page = 0;
-				MainContainer.tableConfig(DataHandler.configPage(), MainContainer.getTable());
+				MainContainer.tableConfig(DataHandler.configPage(TablePanelManage.getPage(), TablePanelManage.getPageCount(), TablePanelManage.getPageSize()), MainContainer.getTable());
 			}
 		});
 
@@ -60,7 +60,7 @@ public class TablePanelManage {
 			@Override
 			public void widgetSelected(SelectionEvent arg0) {
 				page = countPage - 1;
-				MainContainer.tableConfig(DataHandler.configPage(), MainContainer.getTable());
+				MainContainer.tableConfig(DataHandler.configPage(TablePanelManage.getPage(), TablePanelManage.getPageCount(), TablePanelManage.getPageSize()), MainContainer.getTable());
 			}
 		});
 
@@ -72,7 +72,7 @@ public class TablePanelManage {
 			public void widgetSelected(SelectionEvent arg0) {
 				if (page > 0) {
 					page--;
-					MainContainer.tableConfig(DataHandler.configPage(), MainContainer.getTable());
+					MainContainer.tableConfig(DataHandler.configPage(TablePanelManage.getPage(), TablePanelManage.getPageCount(), TablePanelManage.getPageSize()), MainContainer.getTable());
 				}
 			}
 		});
@@ -85,7 +85,7 @@ public class TablePanelManage {
 			public void widgetSelected(SelectionEvent arg0) {
 				if (page < countPage - 1) {
 					page++;
-					MainContainer.tableConfig(DataHandler.configPage(), MainContainer.getTable());
+					MainContainer.tableConfig(DataHandler.configPage(TablePanelManage.getPage(), TablePanelManage.getPageCount(), TablePanelManage.getPageSize()), MainContainer.getTable());
 				}
 			}
 		});
@@ -116,7 +116,7 @@ public class TablePanelManage {
 					errorMessege.open();
 				}
 				page = 0;
-				MainContainer.tableConfig(DataHandler.configPage(), MainContainer.getTable());
+				MainContainer.tableConfig(DataHandler.configPage(TablePanelManage.getPage(), TablePanelManage.getPageCount(), TablePanelManage.getPageSize()), MainContainer.getTable());
 			}
 		});
 

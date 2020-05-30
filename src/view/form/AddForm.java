@@ -88,7 +88,7 @@ public class AddForm {
 						errorMessege.setMessage("Спортсмен с таким ФИО в списке уже присутствует");
 						errorMessege.open();
 					}
-					MainContainer.tableConfig(DataHandler.configPage(), MainContainer.getTable());
+					MainContainer.tableConfig(DataHandler.configPage(TablePanelManage.getPage(), TablePanelManage.getPageCount(), TablePanelManage.getPageSize()), MainContainer.getTable());
 				}
 			}
 		});

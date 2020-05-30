@@ -7,23 +7,32 @@ import java.util.List;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 
+import org.eclipse.swt.widgets.MessageBox;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
+import com.view.DialogContainer;
+
 import model.DataHandler;
 import model.Person;
 import model.Sportsman;
+import view.form.TablePanelManage;
+import view.table.MainContainer;
 
 public class LoadData {
 	private final static String DATA_XML = "sportsmans.xml";
 
 	public static void loadSportsmans() {
-		File xmlFile = new File(DATA_XML);
+		try {
+		DialogContainer container = new DialogContainer(MainContainer.getDisplay());
+		String path = container.open();
+		File xmlFile = new File(path);
+		
 		DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
 		DocumentBuilder builder;
-		try {
+		
 			builder = factory.newDocumentBuilder();
 			Document doc = builder.parse(xmlFile);
 			doc.getDocumentElement().normalize();
@@ -35,8 +44,12 @@ public class LoadData {
 			}
 
 			DataHandler.setSpartsmanList(sportsmans);
+			MainContainer.tableConfig(DataHandler.configPage(TablePanelManage.getPage(), TablePanelManage.getPageCount(), TablePanelManage.getPageSize()), MainContainer.getTable());
 		} catch (Exception exc) {
-			exc.printStackTrace();
+			MessageBox errorMessege = new MessageBox(MainContainer.getTable().getShell());
+			errorMessege.setText("Загрузка");
+			errorMessege.setMessage("Неверно выбран файл!");		
+			errorMessege.open();
 		}
 
 	}

@@ -4,8 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import util.xml.SportsmanGenerator;
-import view.form.TablePanelManage;
-import view.table.MainContainer;
 
 public class DataHandler {
 	private static List<Sportsman> sportsmans;
@@ -20,13 +18,9 @@ public class DataHandler {
 
 	public static void setSpartsmanList(List<Sportsman> sportsmansList) {
 		sportsmans = sportsmansList;
-		MainContainer.tableConfig(DataHandler.configPage(), MainContainer.getTable());
 	}
 
-	public static List<Sportsman> configPage() {
-		Integer page = TablePanelManage.getPage();
-		Integer pageCount = TablePanelManage.getPageCount();
-		Integer pageSize = TablePanelManage.getPageSize();
+	public static List<Sportsman> configPage(Integer page, Integer pageCount, Integer pageSize) {
 		sportsmans = DataHandler.getSpartsman();
 		if (sportsmans.isEmpty() == true)
 			return null;
@@ -39,7 +33,8 @@ public class DataHandler {
 					sportsmansPage.get(i).add(sportsmans.get(i * pageSize + j));
 			}
 		}
-
+		if (sportsmansPage.get(page).isEmpty())
+			return null;
 		return sportsmansPage.get(page);
 	}
 
@@ -119,8 +114,10 @@ public class DataHandler {
 			if (sportsmans.get(i).getFullName().equals(man.getFullName()))
 				check = false;
 		}
-		if (check == true)
+		if (check == true) {
 			sportsmans.add(man);
+			sportsmansCount++;
+		}
 		return check;
 	}
 }

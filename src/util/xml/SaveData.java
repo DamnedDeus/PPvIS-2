@@ -16,6 +16,8 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 
+import com.view.DialogContainer;
+
 import model.DataHandler;
 import model.Sportsman;
 import view.table.MainContainer;
@@ -42,16 +44,22 @@ public class SaveData {
 			Transformer transformer = transformerFactory.newTransformer();
 			transformer.setOutputProperty(OutputKeys.INDENT, "yes");
 			DOMSource source = new DOMSource(doc);
-
-			StreamResult file = new StreamResult(new File(DATA_XML));
+			
+			DialogContainer container = new DialogContainer(MainContainer.getDisplay());
+			String path = container.open() + "\\" + DATA_XML;
+			
+			StreamResult file = new StreamResult(path);
 			transformer.transform(source, file);
 
 			MessageBox errorMessege = new MessageBox(MainContainer.getTable().getShell());
 			errorMessege.setText("Сохранение");
-			errorMessege.setMessage("Сохранение базы данных в " + DATA_XML + " завершено успешно!");		
+			errorMessege.setMessage("Сохранение базы данных в " + path + " завершено успешно!");		
 			errorMessege.open();
 		} catch (Exception e) {
-			e.printStackTrace();
+			MessageBox errorMessege = new MessageBox(MainContainer.getTable().getShell());
+			errorMessege.setText("Сохранение");
+			errorMessege.setMessage("Неверно выбран путь сохранения!");		
+			errorMessege.open();
 		}
 	}
 

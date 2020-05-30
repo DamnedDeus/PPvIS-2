@@ -36,13 +36,12 @@ public class MainContainer {
 		rowLayout.marginTop = 10;
 
 		shell.setLayout(rowLayout);
-
-		MainContainer.table = new Table(shell, SWT.BORDER | SWT.MULTI | SWT.FULL_SELECTION);
-		table.setHeaderVisible(true);
-		TablePanelManage.processingPanel(shell);
-		tableConfig(DataHandler.configPage(), table);
-
+		
 		MenuBar.getInstance(shell);
+		TablePanelManage.processingPanel(shell);
+		MainContainer.table = new Table(shell, SWT.BORDER | SWT.MULTI | SWT.FULL_SELECTION);
+		table.setHeaderVisible(true);	
+		tableConfig(DataHandler.configPage(TablePanelManage.getPage(), TablePanelManage.getPageCount(), TablePanelManage.getPageSize()), table);
 		shell.open();
 
 		while (!shell.isDisposed()) {

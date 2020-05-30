@@ -9,6 +9,7 @@ import org.eclipse.swt.widgets.Listener;
 
 import model.DataHandler;
 import view.form.GeneralSearchForm;
+import view.form.TablePanelManage;
 import view.table.MainContainer;
 
 public class ApplicationDeleteController {
@@ -34,7 +35,8 @@ public class ApplicationDeleteController {
 				generalForm.getErrorMessege().setMessage("Подходящих элементов не найдено");
 			else
 				generalForm.getErrorMessege().setMessage("Из списка удалено " + rezult + " элемента");
-			MainContainer.tableConfig(DataHandler.configPage(), MainContainer.getTable());
+			TablePanelManage.setPage(0);
+			MainContainer.tableConfig(DataHandler.configPage(TablePanelManage.getPage(), TablePanelManage.getPageCount(), TablePanelManage.getPageSize()), MainContainer.getTable());
 			generalForm.getErrorMessege().open();
 		}
 	});
